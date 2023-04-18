@@ -51,12 +51,14 @@ public class Persona{
 	}
 
 	public void setDni(String dni) throws DniInvalido {
-		if(Persona.verificarDniInvalido(dni)) {
+		
+		this.dni = dni;
+		/*if(Persona.verificarDniInvalido(dni)) {
 			this.dni = dni;
 		}
 		else {
 			System.out.println("NO SE PUDO CARGAR EL DNI");
-		}
+		}*/
 	}
 
 	@Override

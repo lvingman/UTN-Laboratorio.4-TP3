@@ -45,8 +45,8 @@ public class Archivo {
 			
 			String linea = "";
 				while (linea != null) {
-					System.out.println(linea);
 					linea = miBuffer.readLine();
+					System.out.println(linea);
 				} 
 			
 			miBuffer.close();
