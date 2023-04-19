@@ -57,5 +57,42 @@ public class Archivo {
 		}
 		
 	}
+	public void llenarTS(TreeSet<Persona> persona) 
+		{
+			FileReader entrada;
+			try
+			{
+				String linea;
+				entrada = new FileReader(ruta);
+				BufferedReader miBuffer = new BufferedReader(entrada);
+				while((linea = miBuffer.readLine()) != null) {
+					Persona p;
+					try {
+						p = lineaAPersona(linea);
+						Persona.verificarDniInvalido(p.getDni());
+						persona.add(p);
+					}
+					catch(DniInvalido ex) {
+						System.out.println(ex.getMessage());
+						
+					}
+				}
+				miBuffer.close();
+				entrada.close();
+			}catch (IOException e) {
+				System.out.println("No se encontro el archivo");
+			}
+		}
+		
+		public Persona lineaAPersona(String linea)
+		{
+			String[] p2 = linea.split("-");
+			String nombre = p2[0];
+			String apellido = p2[1];
+			String dni = p2[2];
+			
+			return new Persona(nombre,apellido,dni);
+		}
+
 
 }
