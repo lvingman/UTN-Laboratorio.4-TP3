@@ -6,7 +6,7 @@ public class Principal {
 		
 		Ejercicio ej = new Ejercicio();
 		
-		ej.resolver();
+		ej.resolverC();
 
 	}
 
