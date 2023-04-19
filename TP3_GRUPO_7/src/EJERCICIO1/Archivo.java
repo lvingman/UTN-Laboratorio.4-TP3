@@ -1,8 +1,10 @@
 package EJERCICIO1;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.TreeSet;
 
@@ -59,41 +61,60 @@ public class Archivo {
 		
 	}
 	public void llenarTS(TreeSet<Persona> persona) 
+	{
+		FileReader entrada;
+		try
 		{
-			FileReader entrada;
-			try
-			{
-				String linea;
-				entrada = new FileReader(ruta);
-				BufferedReader miBuffer = new BufferedReader(entrada);
-				while((linea = miBuffer.readLine()) != null) {
-					Persona p;
-					try {
-						p = lineaAPersona(linea);
-						Persona.verificarDniInvalido(p.getDni());
-						persona.add(p);
-					}
-					catch(DniInvalido ex) {
-						System.out.println(ex.getMessage());
-						
-					}
+			String linea;
+			entrada = new FileReader(ruta);
+			BufferedReader miBuffer = new BufferedReader(entrada);
+			while((linea = miBuffer.readLine()) != null) {
+				Persona p;
+				try {
+					p = lineaAPersona(linea);
+					Persona.verificarDniInvalido(p.getDni());
+					persona.add(p);
 				}
-				miBuffer.close();
-				entrada.close();
-			}catch (IOException e) {
-				System.out.println("No se encontro el archivo");
+				catch(DniInvalido ex) {
+					System.out.println(ex.getMessage());
+					
+				}
 			}
+			miBuffer.close();
+			entrada.close();
+		}catch (IOException e) {
+			System.out.println("No se encontro el archivo");
 		}
-		
-		public Persona lineaAPersona(String linea)
-		{
-			String[] p2 = linea.split("-");
-			String nombre = p2[0];
-			String apellido = p2[1];
-			String dni = p2[2];
+	}
+	
+	public void escribirResultado(TreeSet<Persona> persona) {
+		FileWriter escritura;
+		try {
+			escritura = new FileWriter("Archivos\\Resultados.txt");
+			BufferedWriter miBufferEscritura = new BufferedWriter(escritura);
 			
-			return new Persona(nombre,apellido,dni);
+			for (Persona p : persona) {
+				miBufferEscritura.write(p.toString() + "\n");
+			}
+			
+			miBufferEscritura.close();
+			escritura.close();
+			
+		}catch (IOException e) {
+			System.out.println(e);
 		}
+	}
+	
+		
+	public Persona lineaAPersona(String linea)
+	{
+		String[] p2 = linea.split("-");
+		String nombre = p2[0];
+		String apellido = p2[1];
+		String dni = p2[2];
+		
+		return new Persona(nombre,apellido,dni);
+	}
 
 
 }

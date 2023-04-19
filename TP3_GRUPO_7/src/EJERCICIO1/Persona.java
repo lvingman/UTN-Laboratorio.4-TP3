@@ -68,14 +68,20 @@ public class Persona implements Comparable<Persona>{
 	
 	@Override
 	public int compareTo(Persona o) {
+		Character aVer1 = (o.getApellido()).charAt(0);
+		Character aVer2 = this.apellido.charAt(0);
+		
+		int aComparar1 = aVer1.hashCode();
+		int aComparar2 = aVer2.hashCode();
+		
 		
 			if (o.getApellido().compareTo(this.apellido) == 0)
 			    return 0;
 			else
-			if (o.getApellido().compareTo(this.apellido) < 0)
+			if (aComparar1 < aComparar2)
 			   return 1;
 			else
-			if (o.getApellido().compareTo(this.apellido) > 0)
+			if (aComparar1 > aComparar2)
 			   return -1;
 			return 0;
 	}
